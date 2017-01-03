@@ -24,11 +24,12 @@ class play_workout_handler(object):
 
     def on(self):
         # launch and ki
-        os.system("ssh {host} 'pianobar &; sleep {time};'".format(host=HOST_NAME,time=PLAY_TIME))
+        #os.system("ssh {host} pianobar &; sleep {time};".format(host=HOST_NAME,time=PLAY_TIME))
+        os.system("ssh {host} /home/markv/run_pianobar &".format(host=HOST_NAME))
         print 'pianobar on'
         return True
     def off(self):
-        os.system("ssh {host} 'pkill -f pianobar'".format(host=HOST_NAME))
+        os.system("ssh {host} pkill -f pianobar".format(host=HOST_NAME))
         print "pianobar off"
         return True
 

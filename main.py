@@ -10,7 +10,7 @@ from pianobar  import play_workout_handler
 # List all triggers here
 TRIGGERS = {"TV":           {'port':52000,'action':tv_power_handler()},
             "TV Speakers":  {'port':0,    'action':tv_mute_handler()},
-            "Workout music":{'port':0,    'action':play_workout_handler()}}
+            "Basement speakers" :{'port':0,    'action':play_workout_handler()}}
 
 # Main method, sets up devices and continually polls
 if __name__ == "__main__":
