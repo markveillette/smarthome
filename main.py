@@ -7,6 +7,13 @@ import time
 from ir_remote import tv_power_handler,tv_mute_handler
 from pianobar  import play_workout_handler
 
+# Main script that activates the listener.  This polls continuously waiting for a signal 
+# from the amazon echo.  List all devices in TRIGGERS variable and import corresponding handler.
+#
+# To run, enter "python main.py".  I recommending doing inside a 
+# tmux or screen session so you can detatch.
+#
+
 # List all triggers here
 TRIGGERS = {"TV":           {'port':52000,'action':tv_power_handler()},
             "TV Speakers":  {'port':0,    'action':tv_mute_handler()},
