@@ -1,5 +1,8 @@
 A set of python scripts I use for home automation with my Amazon Echo.
 
+The method used to control smart home devices is based on fauxmo found here:
+https://github.com/makermusings/fauxmo
+
 To control these devices, I followed the method described here:
 http://www.makermusings.com/2015/07/13/amazon-echo-and-home-automation/
 
@@ -8,7 +11,9 @@ Included here are scripts for
 --  A TV remote controlled by my raspberry pi using lirc
 --  Music streamer on Ubuntu using pianobar
 
-To design the IR LED circut, I followed
+The list of devices controlled are set by the TRIGGERS variable in main.py.  Each trigger uses a handler defined in separate .py files.
+
+The TV remote uses LIRC package and a simple LED hooke dup to the GPIO pins on the pi.  To design the IR LED circut, I followed
 http://randomtutor.blogspot.gr/2013/01/web-based-ir-remote-on-raspberry-pi.html
 
 #####
