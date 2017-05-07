@@ -32,36 +32,38 @@ class tv_remote_handler(object):
         """
         os.system(cmd)
    
-    def send(self,n=1):
+    def send(self,key,n=1):
         """
         Sends key one or more times
 
         Parameters
         ----------
+               key  Remote command to send, e.g. KEY_POWER
                  n  Number of times to send
         """
         for i in range(n):
-            self.issue(self.comd.format(s='SEND_ONCE',
+            self.issue(self.cmd.format(s='SEND_ONCE',
                                    r=self.remote_name,
-                                   k=self.key)
+                                   k=key))
             time.sleep(0.1)               
 
-    def send_continuous(self,send_length=0.1):
+    def send_continuous(self,key,send_length=0.1):
         """
         Sends IR signal continuously for length send_length seconds
          
         Parameters
         ----------
+                key  Remote command to send, e.g. KEY_POWER
         send_length  Length of time that command is being sent
 
         """
         self.issue(self.cmd.format(s='SEND_START',
                               r=self.remote_name,
-                              k=self.key))
+                              k=key))
         time.sleep(send_length)
         self.issue(self.cmd.format(s='SEND_STOP',
                               r=self.remote_name,
-                              k=self.key)) 
+                              k=key)) 
         
    
 
@@ -77,8 +79,7 @@ class tv_power_handler(tv_remote_handler):
         remote_name:  Name of remote in /etc/lirc/lircd.conf file
 
         """
-        Base.__init__(self,remote_name=remote_name)
-        self.key='KEY_POWER'
+        tv_remote_handler.__init__(self,remote_name=remote_name)
 
     def on(self):
         """
@@ -87,42 +88,39 @@ class tv_power_handler(tv_remote_handler):
         Note: I needed to send multiple "on" signals to my TV for 
         this to work.
         """
-        self.send_continuous(send_length(0.1))
+        self.send_continuous(key='KEY_POWER',send_length=0.1)
         print "TV power on"
         return True
     def off(self):
         """
         Turns off TV
         """
-        self.send(n=1)
+        self.send('KEY_POWER',n=1)
         print "TV power off"
         return True
 
-class tv_mute_handler(object):
-    def __init__(self):
+class tv_mute_handler(tv_remote_handler):
+    def __init__(self,remote_name=DEFAULT_REMOTE):
         """
-        Handler for tuning TV power on and off
-
+        Constructor
         Parameters
         ----------
         remote_name:  Name of remote in /etc/lirc/lircd.conf file
-
         """
-        Base.__init__(self,remote_name=remote_name)
-        self.key='KEY_MUTE'
+	tv_remote_handler.__init__(self,remote_name=remote_name)
 
     def on(self):
         """
         Turns on Mute
         """
-        self.send(n=1)
+        self.send('KEY_MUTE',n=1)
         print "TV mute on"
         return True
     def off(self):
         """ 
         Turns off mute
         """
-        self.send(n=1)
+        self.send('KEY_MUTE',n=1)
         print "TV mute off"
         return True
 
